@@ -20,7 +20,7 @@ define('LONA_LNG', -86.250753);
 define('RADIO_METROS', 300);
 
 // Tiempo de expiración del token de sesión en minutos (Capa 4)
-define('EXPIRACION_SESION_MINUTOS', 30);
+define('EXPIRACION_SESION_MINUTOS', 30000);
 
 // ID de la activación
 define('ACTIVACION_ID', 1);
