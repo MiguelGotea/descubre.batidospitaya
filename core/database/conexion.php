@@ -20,6 +20,15 @@ try {
     );
 } catch (PDOException $e) {
     error_log("Error de conexión BD Descubre: " . $e->getMessage());
+    if (basename($_SERVER['SCRIPT_NAME'] ?? '') === 'validate_access.php' || 
+        basename($_SERVER['SCRIPT_NAME'] ?? '') === 'save_registration.php') {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error al conectar con la base de datos: ' . $e->getMessage()
+        ]);
+        exit;
+    }
     if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
         die("Error de conexión: " . $e->getMessage());
     } else {

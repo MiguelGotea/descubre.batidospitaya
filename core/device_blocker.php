@@ -1,5 +1,9 @@
 <?php
-require_once __DIR__ . '/database/conexion.php';
+if (file_exists(__DIR__ . '/database/conexion.php')) {
+    require_once __DIR__ . '/database/conexion.php';
+} else {
+    require_once __DIR__ . '/conexion.php';
+}
 
 /**
  * Normaliza la cédula: quita espacios, guiones y convierte a mayúsculas

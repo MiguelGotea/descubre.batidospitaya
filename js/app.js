@@ -156,7 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             body: formData
                         });
 
-                        const data = await res.json();
+                        const text = await res.text();
+                        let data;
+                        try {
+                            data = JSON.parse(text);
+                        } catch (parseErr) {
+                            console.error("Respuesta no válida del servidor:", text);
+                            showErrorModal('Error del Servidor', 'El servidor retornó: ' + (text.substring(0, 150) || 'Error ' + res.status), '⚠️');
+                            return;
+                        }
 
                         if (data.success && data.token) {
                             sessionToken = data.token;
@@ -285,7 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData
                 });
 
-                const data = await res.json();
+                const text = await res.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (parseErr) {
+                    console.error("Respuesta no válida del servidor:", text);
+                    showErrorModal('Error del Servidor', 'El servidor retornó: ' + (text.substring(0, 150) || 'Error ' + res.status), '⚠️');
+                    return;
+                }
 
                 if (data.success && data.codigo) {
                     hideModal();

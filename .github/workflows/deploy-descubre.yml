@@ -48,8 +48,8 @@ jobs:
           --exclude='.github/' \
           --exclude='.gitignore' \
           --exclude='.scripts/' \
-          --exclude='_referencias/' \
-          --exclude='database/' \
+          --exclude='/_referencias/' \
+          --exclude='/database/' \
           -e "ssh -o StrictHostKeyChecking=no -p 65002" \
           ./ \
           ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH_DESCUBRE }}/
