@@ -1,0 +1,534 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --pitaya-green-dark: #0A3D36;
+    --pitaya-green-medium: #145E53;
+    --pitaya-green-light: #E7F6F1;
+    --pitaya-yellow: #FAB819;
+    --pitaya-yellow-hover: #E5A612;
+    --pitaya-pink: #E41865;
+    --pitaya-bg-cream: #FAF6EE;
+    --pitaya-text-dark: #0A3D36;
+    --pitaya-border: #D8EAE4;
+    --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --shadow-soft: 0 10px 30px rgba(10, 61, 54, 0.12);
+    --shadow-card: 0 15px 35px rgba(10, 61, 54, 0.18);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    font-family: var(--font-main);
+    background-color: #072924; /* Fondo exterior elegante */
+    color: var(--pitaya-text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+
+/* ========================================================
+   CONTENEDOR MÓVIL ESTILO APP
+   ======================================================== */
+.app-viewport {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background-color: var(--pitaya-bg-cream);
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ========================================================
+   PANTALLAS / PASOS (STEP 1, 2, 3)
+   ======================================================== */
+.step-screen {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    position: relative;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.step-screen.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================================
+   DISEÑO PASO 1: PANTALLA INICIAL
+   ======================================================== */
+.screen-initial {
+    position: relative;
+    width: 100%;
+    background-color: #FAF6EF;
+}
+
+.screen-initial-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+.initial-action-container {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 10;
+}
+
+.btn-continuar {
+    background-color: var(--pitaya-yellow);
+    color: var(--pitaya-green-dark);
+    font-family: var(--font-main);
+    font-size: 19px;
+    font-weight: 800;
+    padding: 14px 42px;
+    border-radius: 35px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    width: 82%;
+    max-width: 320px;
+}
+
+.btn-continuar:hover, .btn-continuar:active {
+    background-color: var(--pitaya-yellow-hover);
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-continuar .arrow-icon {
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 900;
+}
+
+/* Mensaje si no tiene llave */
+.no-key-warning-card {
+    background: rgba(10, 61, 54, 0.95);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(250, 184, 25, 0.4);
+    animation: pulseWarning 2.5s infinite;
+}
+
+@keyframes pulseWarning {
+    0%, 100% { border-color: rgba(250, 184, 25, 0.4); }
+    50% { border-color: rgba(250, 184, 25, 0.9); }
+}
+
+.no-key-warning-card .qr-badge-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.no-key-warning-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--pitaya-yellow);
+    margin-bottom: 6px;
+}
+
+.no-key-warning-card p {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #E2F0EC;
+    font-weight: 400;
+}
+
+/* ========================================================
+   DISEÑO PASO 2: FORMULARIO
+   ======================================================== */
+.screen-form {
+    position: relative;
+    width: 100%;
+    background-color: #FAF6EF;
+}
+
+.screen-form-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Capa interactiva sobre la imagen del formulario */
+.form-overlay-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 32px;
+    z-index: 10;
+}
+
+/* Posicionamiento milimétrico sobre los campos dibujados */
+.form-inputs-slot {
+    position: absolute;
+    top: 36.2%;
+    left: 13.5%;
+    width: 73%;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.input-row {
+    position: relative;
+    width: 100%;
+    height: 48px;
+}
+
+.input-row input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 600;
+    color: #0E3E37;
+    padding-left: 48px;
+    padding-right: 14px;
+}
+
+.input-row input::placeholder {
+    color: #8CA39E;
+    font-weight: 500;
+}
+
+/* Botón OBTENER DESCUENTO posicionado sobre el botón de la imagen */
+.btn-submit-slot {
+    position: absolute;
+    top: 55.4%;
+    left: 21%;
+    width: 58%;
+    height: 48px;
+}
+
+.btn-obtener-descuento {
+    width: 100%;
+    height: 100%;
+    background: var(--pitaya-yellow);
+    border: none;
+    border-radius: 30px;
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--pitaya-green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.btn-obtener-descuento:hover, .btn-obtener-descuento:active {
+    background: var(--pitaya-yellow-hover);
+    transform: scale(0.97);
+}
+
+/* ========================================================
+   DISEÑO PASO 3: PANTALLA FINAL (CUPÓN)
+   ======================================================== */
+.screen-final {
+    position: relative;
+    width: 100%;
+    background-color: #FAF6EF;
+}
+
+.screen-final-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Slot para inyectar el código único dentro del recuadro blanco del ticket */
+.final-code-slot {
+    position: absolute;
+    top: 46.5%;
+    left: 26.5%;
+    width: 47%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+}
+
+.coupon-display-code {
+    font-family: var(--font-main);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--pitaya-green-dark);
+    text-transform: uppercase;
+    user-select: all;
+    animation: codePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes codePop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Botón flotante para copiar código o guardar */
+.final-action-footer {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    z-index: 15;
+}
+
+.btn-copy-code {
+    background: #0A3D36;
+    color: #FFFFFF;
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(250, 184, 25, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-copy-code:hover {
+    background: #145E53;
+    transform: translateY(-2px);
+}
+
+/* ========================================================
+   MODAL DE CARGA Y ESTADOS
+   ======================================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 61, 54, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    position: relative;
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+    font-size: 44px;
+    margin-bottom: 12px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--pitaya-green-dark);
+    margin-bottom: 8px;
+}
+
+.modal-message {
+    font-size: 14px;
+    color: #4A635E;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.modal-btn {
+    background: var(--pitaya-yellow);
+    color: var(--pitaya-green-dark);
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 800;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgba(10, 61, 54, 0.15);
+    border-top-color: var(--pitaya-yellow);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================================
+   BLOQUEO EN COMPUTADORAS (PC / DESKTOP BLOCKER)
+   "Hay que bloquear la apertura para formato pc, unicamente admite formato celular"
+   ======================================================== */
+.pc-blocker-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #072924 0%, #0E3E37 60%, #155B51 100%);
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.pc-blocker-card {
+    background: #FAF6EF;
+    border-radius: 28px;
+    padding: 40px 36px;
+    max-width: 460px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    border: 3px solid var(--pitaya-yellow);
+}
+
+.pc-blocker-logo {
+    max-width: 110px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.pc-blocker-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+}
+
+.pc-blocker-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--pitaya-green-dark);
+    margin-bottom: 10px;
+}
+
+.pc-blocker-text {
+    font-size: 15px;
+    color: #43625C;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.pc-blocker-qr-box {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pc-blocker-qr-box img {
+    width: 160px;
+    height: 160px;
+    display: block;
+}
+
+.pc-blocker-qr-box span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--pitaya-green-dark);
+}
+
+/* Toast de notificación rápida */
+.toast-msg {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: rgba(10, 61, 54, 0.95);
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 10000;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    border: 1px solid var(--pitaya-yellow);
+}
+
+.toast-msg.show {
+    transform: translateX(-50%) translateY(0);
+}

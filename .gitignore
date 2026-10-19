@@ -1,0 +1,12 @@
+# Configuración de Entorno
+.env
+.gemini/
+
+# Dependencias
+node_modules/
+
+# Archivos de Sistema / IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

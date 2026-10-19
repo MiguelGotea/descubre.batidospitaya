@@ -1,0 +1,27 @@
+# ==============================================================================
+# .HTACCESS - DESCUBRE.BATIDOSPITAYA.COM
+# ==============================================================================
+
+RewriteEngine On
+
+# ------------------------------------------------------------------------------
+# 1. REDIRECCIÓN TEMPORAL A INSTAGRAM (MODO DESARROLLO)
+# ------------------------------------------------------------------------------
+# Mientras esta regla esté activa, cualquier visita se redirige a Instagram.
+# CUANDO DESEES HACER PÚBLICA LA PÁGINA: Comenta la siguiente línea con un '#' o bórrala.
+RewriteRule ^.*$ https://www.instagram.com/batidospitaya/? [R=302,L]
+
+# ------------------------------------------------------------------------------
+# 2. CONFIGURACIÓN DEL SERVIDOR WEB (PRODUCCIÓN)
+# ------------------------------------------------------------------------------
+DirectoryIndex index.php index.html
+
+# Seguridad básica de cabeceras
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Forzar codificación UTF-8
+AddDefaultCharset UTF-8
