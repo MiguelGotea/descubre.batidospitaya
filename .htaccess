@@ -9,7 +9,7 @@ RewriteEngine On
 # ------------------------------------------------------------------------------
 # Mientras esta regla esté activa, cualquier visita se redirige a Instagram.
 # CUANDO DESEES HACER PÚBLICA LA PÁGINA: Comenta la siguiente línea con un '#' o bórrala.
-RewriteRule ^.*$ https://www.instagram.com/batidospitaya/? [R=302,L]
+# RewriteRule ^.*$ https://www.instagram.com/batidospitaya/? [R=302,L]
 
 # ------------------------------------------------------------------------------
 # 2. CONFIGURACIÓN DEL SERVIDOR WEB (PRODUCCIÓN)
