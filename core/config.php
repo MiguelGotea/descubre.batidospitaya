@@ -7,8 +7,14 @@
 define('QR_ACCESS_KEY', 'bP9x2Qm7vN4kRj3sT8wLf6Yh');
 
 // Coordenadas del punto físico (Multicentro Las Américas)
-define('LONA_LAT', 12.139557);
-define('LONA_LNG', -86.228827);
+//real plaza las americas
+//define('LONA_LAT', 12.139557);
+//oficina
+define('LONA_LAT', 12.120908);
+//real plaza las americas
+//define('LONA_LNG', -86.228827);
+//oficina
+define('LONA_LNG', -86.250753);
 
 // Radio permitido en metros
 define('RADIO_METROS', 300);
