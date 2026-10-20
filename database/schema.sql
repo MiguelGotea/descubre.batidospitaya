@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `descubre_registros` (
     `nombre_completo` VARCHAR(200) NOT NULL COMMENT 'Nombre y apellido del participante',
     `numero_contacto` VARCHAR(20) NOT NULL COMMENT 'Número telefónico (8 dígitos en Nicaragua)',
     `numero_cedula` VARCHAR(30) NOT NULL UNIQUE COMMENT 'Número de cédula único normalizado sin guiones',
-    `correo_electronico` VARCHAR(150) DEFAULT NULL COMMENT 'Correo electrónico si aplica',
     
     -- Código de descuento generado
     `codigo_descuento` VARCHAR(10) NOT NULL UNIQUE COMMENT 'Código único alfanumérico mayúsculas máx 6 caracteres',

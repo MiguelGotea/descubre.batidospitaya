@@ -24,7 +24,6 @@ try {
     $nombre        = trim($_POST['nombre_completo'] ?? '');
     $contacto      = trim($_POST['numero_contacto'] ?? '');
     $cedula        = trim($_POST['numero_cedula'] ?? '');
-    $correo        = trim($_POST['correo_electronico'] ?? '');
     $fingerprint   = trim($_POST['device_fingerprint'] ?? '');
     $canvasFp      = trim($_POST['canvas_fingerprint'] ?? '');
 
@@ -84,17 +83,16 @@ try {
 
     // 9. Guardar Registro en Base de Datos
     $sql = "INSERT INTO descubre_registros 
-            (nombre_completo, numero_contacto, numero_cedula, correo_electronico, 
+            (nombre_completo, numero_contacto, numero_cedula, 
              codigo_descuento, ip_publica, user_agent, device_fingerprint, 
              canvas_fingerprint, geo_lat, geo_lng, distancia_metros, geo_metodo, 
              session_token, activacion_id, estado, fecha_registro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', NOW())";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', NOW())";
 
     $params = [
         $nombre,
         $contactoLimpio,
         $cedulaNorm,
-        empty($correo) ? null : $correo,
         $codigoDescuento,
         $ip,
         $userAgent,
