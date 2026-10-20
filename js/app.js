@@ -37,24 +37,128 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputCedula = document.getElementById('numero_cedula');
 
     // 1. RESTRICCIÓN PARA PC (SOLO FORMATO CELULAR)
-    function verificarDispositivoMovil() {
-        const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isWideScreen = window.innerWidth > 800;
+    /**
+     * Detección multicapa de dispositivos móviles (Smartphones, Tablets, Plegables)
+     * Cubre todo el panorama de dispositivos móviles:
+     * - Android (Chrome, Samsung Internet, Firefox, Opera, Edge, Brave, etc.)
+     * - iOS (iPhone, iPad con Safari, Chrome, Firefox)
+     * - Dispositivos en modo "Sitio para computadoras" / "Desktop site" (como en Android Chrome)
+     * - Teléfonos plegables abiertos o cerrados (Galaxy Fold, Pixel Fold, etc.)
+     * - Dispositivos Huawei / Honor (HarmonyOS, OpenHarmony, Petal Browser)
+     * - WebViews y navegadores in-app (WhatsApp, Instagram, Facebook, TikTok, Google Lens)
+     * - Bloquea con absoluta precisión computadoras de escritorio y laptops reales (PC/Mac)
+     */
+    function esDispositivoMovil() {
+        const ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+        const platform = (navigator.platform || '').toLowerCase();
 
-        // Si es pantalla de escritorio amplia y no es un dispositivo móvil con pantalla táctil
-        if (isWideScreen && (!isMobileUA || navigator.maxTouchPoints === 0)) {
+        // 1. Detección exhaustiva por User-Agent
+        const mobileKeywords = [
+            'android', 'iphone', 'ipad', 'ipod', 'mobile', 'tablet',
+            'phone', 'harmonyos', 'openharmony', 'huawei', 'honor',
+            'samsungbrowser', 'ucbrowser', 'miuibrowser', 'xiaomi',
+            'redmi', 'oppo', 'vivo', 'realme', 'motorola', 'oneplus',
+            'crios', 'fxios', 'edgios', 'edga', 'opera mobi', 'opera mini',
+            'blackberry', 'iemobile', 'webos', 'silk', 'kindle',
+            'line', 'instagram', 'fban', 'fbav', 'whatsapp', 'tiktok', 'wv'
+        ];
+        const hasMobileUA = mobileKeywords.some(keyword => ua.includes(keyword));
+
+        // 2. Client Hints API moderna (Chromium: Chrome, Samsung Internet, Edge)
+        const isClientHintMobile = Boolean(navigator.userAgentData && navigator.userAgentData.mobile);
+
+        // 3. Detección de iPadOS y iOS simulando Mac de escritorio (Apple Safari en iPad / iPhone)
+        // Desde iPadOS 13, Apple reporta platform='MacIntel' y UA='Macintosh', pero con touchPoints > 1
+        const isAppleMobile = (platform.includes('macintel') || ua.includes('macintosh')) &&
+                              Boolean(navigator.maxTouchPoints && navigator.maxTouchPoints > 1);
+
+        // 4. Capacidades táctiles del hardware (Hardware Touch Screen)
+        const maxTouch = navigator.maxTouchPoints || navigator.msMaxTouchPoints || 0;
+        const hasTouchSupport = maxTouch > 0 || ('ontouchstart' in window) || (typeof TouchEvent !== 'undefined');
+
+        // 5. CSS Media Queries de interacción física (Nivel 4)
+        const isCoarsePointer = window.matchMedia ? (
+            window.matchMedia('(pointer: coarse)').matches ||
+            window.matchMedia('(any-pointer: coarse)').matches
+        ) : false;
+
+        const hasNoHover = window.matchMedia ? window.matchMedia('(hover: none)').matches : false;
+        const hasFineHover = window.matchMedia ? (
+            window.matchMedia('(hover: hover)').matches &&
+            window.matchMedia('(pointer: fine)').matches
+        ) : false;
+
+        // 6. Dimensiones físicas y proporciones de la pantalla del hardware
+        const screenW = window.screen ? window.screen.width : window.innerWidth;
+        const screenH = window.screen ? window.screen.height : window.innerHeight;
+        const minScreenDim = Math.min(screenW, screenH);
+
+        // 7. Sensores y APIs exclusivas de dispositivos móviles
+        const hasOrientationAPI = typeof window.orientation !== 'undefined' || Boolean(window.screen && window.screen.orientation);
+        const dpr = window.devicePixelRatio || 1;
+
+        // 8. Detección especial: Celular con "Sitio para computadoras" / "Desktop site" activado
+        // En este modo, Chrome Android envía UA 'X11; Linux x86_64' y simula innerWidth = 980px.
+        // Pero conserva: pantalla táctil (5-10 puntos), pointer coarse, pantalla física móvil (<= 600px),
+        // alta densidad de píxeles (DPR >= 1.75), o sensores de orientación móvil.
+        const isDesktopModeOnMobile = hasTouchSupport && (
+            isCoarsePointer ||
+            hasNoHover ||
+            minScreenDim <= 600 ||
+            dpr >= 1.75
+        );
+
+        // --- EVALUACIÓN DE DECISIÓN ---
+
+        // Si tiene UA móvil explícito o Client Hint móvil: es móvil
+        if (hasMobileUA || isClientHintMobile) {
+            return true;
+        }
+
+        // Si es dispositivo Apple táctil (iPad / iPhone en modo desktop): es móvil
+        if (isAppleMobile) {
+            return true;
+        }
+
+        // Si es un celular con "Sitio para computadoras": es móvil
+        if (isDesktopModeOnMobile) {
+            return true;
+        }
+
+        // Si la dimensión menor de pantalla física es de formato móvil/tablet y tiene touch: es móvil
+        if (minScreenDim <= 850 && hasTouchSupport) {
+            return true;
+        }
+
+        // Si el puntero principal es táctil y no tiene ratón de escritorio con hover fino: es móvil
+        if (isCoarsePointer && !hasFineHover) {
+            return true;
+        }
+
+        // Si no cumple ninguna señal móvil y es un dispositivo de pantalla ancha con ratón: es PC/Laptop
+        return false;
+    }
+
+    function verificarDispositivoMovil() {
+        const esMovil = esDispositivoMovil();
+
+        if (!esMovil) {
             if (pcBlocker) {
                 pcBlocker.style.display = 'flex';
             }
             return false;
         } else {
-            if (pcBlocker) pcBlocker.style.display = 'none';
+            if (pcBlocker) {
+                pcBlocker.style.display = 'none';
+            }
+            document.body.classList.add('is-mobile-device');
             return true;
         }
     }
 
     verificarDispositivoMovil();
     window.addEventListener('resize', verificarDispositivoMovil);
+    window.addEventListener('orientationchange', verificarDispositivoMovil);
 
     // 2. MODAL HELPERS
     function showLoadingModal(title, msg) {

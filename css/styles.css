@@ -52,6 +52,13 @@ html, body {
     overflow: hidden;
 }
 
+/* Adaptabilidad óptima para celulares en modo escritorio, tablets y foldables */
+@media (min-width: 481px) and (max-width: 1024px) {
+    body.is-mobile-device .app-viewport {
+        max-width: 520px;
+    }
+}
+
 /* ========================================================
    PANTALLAS / PASOS (STEP 1, 2, 3)
    ======================================================== */
