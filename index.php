@@ -39,9 +39,10 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
                 Esta activación de descuento de apertura está diseñada exclusivamente para participar desde tu celular
                 en nuestro Kiosko.
             </p>
-            <div class="pc-blocker-qr-box">
-                <img id="pcQrImg" src="" alt="QR Móvil">
-                <span>Escaneá con tu celular para continuar</span>
+            <div class="pc-blocker-badge">
+                <span class="pc-blocker-badge-icon">📍</span>
+                <span>Visítanos en nuestro Kiosko en <strong>Multicentro Las Américas</strong> para escanear el código y
+                    obtener tu descuento.</span>
             </div>
         </div>
     </div>

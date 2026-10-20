@@ -566,27 +566,25 @@ html, body {
     margin-bottom: 24px;
 }
 
-.pc-blocker-qr-box {
+.pc-blocker-badge {
     background: #FFFFFF;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 16px 20px;
     display: inline-flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.pc-blocker-qr-box img {
-    width: 160px;
-    height: 160px;
-    display: block;
-}
-
-.pc-blocker-qr-box span {
-    font-size: 13px;
-    font-weight: 700;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1.5px dashed var(--pitaya-green);
     color: var(--pitaya-green-dark);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.pc-blocker-badge-icon {
+    font-size: 24px;
+    flex-shrink: 0;
 }
 
 /* Toast de notificación rápida */

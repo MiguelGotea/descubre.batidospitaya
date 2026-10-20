@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Elementos del DOM
     const pcBlocker = document.getElementById('pcBlocker');
-    const pcQrImg = document.getElementById('pcQrImg');
     const modalOverlay = document.getElementById('modalOverlay');
     const modalTitle = document.getElementById('modalTitle');
     const modalMessage = document.getElementById('modalMessage');
@@ -46,11 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isWideScreen && (!isMobileUA || navigator.maxTouchPoints === 0)) {
             if (pcBlocker) {
                 pcBlocker.style.display = 'flex';
-                // Generar QR para escanear en celular
-                const currentUrl = encodeURIComponent(window.location.href);
-                if (pcQrImg) {
-                    pcQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${currentUrl}`;
-                }
             }
             return false;
         } else {
