@@ -249,122 +249,54 @@ html, body {
 }
 
 /* ========================================================
-   DISEÑO PASO 2: FORMULARIO (FONDO LIMPIO + ELEMENTOS SEPARADOS)
+   DISEÑO PASO 2: FORMULARIO
    ======================================================== */
 .screen-form {
     position: relative;
     width: 100%;
-    height: 100%;
-    height: 100dvh;
-    max-height: 100dvh;
     background-color: #FAF6EF;
-    background-image: url('../img/fondo_formulario.jpg');
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
 }
 
-/* Contenedor responsivo superior para distribuir armónicamente sobre el fondo */
-.form-content-wrapper {
+.screen-form-bg {
     width: 100%;
-    max-width: 440px;
+    height: auto;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Capa interactiva sobre la imagen del formulario */
+.form-overlay-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: max(8px, 1.2vh);
-    padding-bottom: max(32vh, 220px); /* Espacio reservado para el batido y frutas en el fondo */
-    box-sizing: border-box;
+    padding: 0 32px;
     z-index: 10;
 }
 
-/* Logo Pitaya superior flotante */
-.form-logo-top {
-    width: 21%;
-    max-width: 90px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    user-select: none;
-    pointer-events: none;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
-}
-
-/* Imagen de texto: ¡Llévate tu 10% de descuento! */
-.form-texto-superior {
-    width: 82%;
-    max-width: 320px;
-    height: auto;
-    display: block;
-    margin-top: 4px;
-    margin-bottom: 12px;
-    user-select: none;
-    pointer-events: none;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
-}
-
-/* Formulario con campos interactivos */
-.form-interactive {
-    width: 86%;
-    max-width: 340px;
+/* Posicionamiento milimétrico sobre los campos dibujados */
+.form-inputs-slot {
+    position: absolute;
+    top: 36.2%;
+    left: 13.5%;
+    width: 73%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    gap: 13px;
 }
 
-.form-inputs-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-}
-
-/* Tarjeta / Recuadro de cada campo con bordes redondeados idénticos al diseño */
-.form-input-card {
+.input-row {
     position: relative;
     width: 100%;
     height: 48px;
-    background: #FFFFFF;
-    border: 2px solid #0E433B;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(14, 67, 59, 0.08);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.form-input-card:focus-within {
-    border-color: #1A7063;
-    box-shadow: 0 0 0 3px rgba(26, 112, 99, 0.2);
-}
-
-.form-input-icon {
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 14px;
-    margin-right: 12px;
-    color: #0E433B;
-    flex-shrink: 0;
-}
-
-.form-input-icon svg {
+.input-row input {
     width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.form-input-card input {
-    flex: 1;
     height: 100%;
     background: transparent;
     border: none;
@@ -372,97 +304,48 @@ html, body {
     font-family: var(--font-main);
     font-size: 15px;
     font-weight: 600;
-    color: #0A3D36;
+    color: #0E3E37;
+    padding-left: 48px;
     padding-right: 14px;
 }
 
-.form-input-card input::placeholder {
-    color: #839D96;
+.input-row input::placeholder {
+    color: #8CA39E;
     font-weight: 500;
 }
 
-/* Botón interactivo OBTENER DESCUENTO con efecto palpitante */
-.form-btn-slot {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2px;
+/* Botón OBTENER DESCUENTO posicionado sobre el botón de la imagen */
+.btn-submit-slot {
+    position: absolute;
+    top: 55.4%;
+    left: 21%;
+    width: 58%;
+    height: 48px;
 }
 
-.btn-obtener-img {
-    background: transparent;
+.btn-obtener-descuento {
+    width: 100%;
+    height: 100%;
+    background: var(--pitaya-yellow);
     border: none;
-    outline: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    width: 76%;
-    max-width: 260px;
-    display: inline-flex;
+    border-radius: 30px;
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--pitaya-green-dark);
+    display: flex;
     align-items: center;
     justify-content: center;
-    animation: botonLatente 1.8s ease-in-out infinite;
-    transition: transform 0.2s ease, filter 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s ease, background-color 0.2s ease;
 }
 
-.img-btn-obtener {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
-    transition: transform 0.15s ease;
-}
-
-@media (hover: hover) {
-    .btn-obtener-img:hover {
-        transform: scale(1.05);
-    }
-}
-
-.btn-obtener-img:active {
+.btn-obtener-descuento:hover, .btn-obtener-descuento:active {
+    background: var(--pitaya-yellow-hover);
     transform: scale(0.97);
 }
-
-/* Optimización para dispositivos con pantallas más cortas (ej: iPhone SE) */
-@media (max-height: 700px) {
-    .form-content-wrapper {
-        padding-top: 2px;
-        padding-bottom: max(28vh, 160px);
-    }
-    .form-logo-top {
-        max-width: 68px;
-    }
-    .form-texto-superior {
-        max-width: 260px;
-        margin-top: 2px;
-        margin-bottom: 6px;
-    }
-    .form-interactive {
-        gap: 8px;
-    }
-    .form-inputs-group {
-        gap: 7px;
-    }
-    .form-input-card {
-        height: 40px;
-        border-radius: 12px;
-    }
-    .form-input-icon {
-        width: 18px;
-        height: 18px;
-        margin-left: 10px;
-        margin-right: 8px;
-    }
-    .form-input-card input {
-        font-size: 13.5px;
-    }
-    .btn-obtener-img {
-        max-width: 215px;
-    }
-}
-
 
 /* ========================================================
    DISEÑO PASO 3: PANTALLA FINAL (CUPÓN)
