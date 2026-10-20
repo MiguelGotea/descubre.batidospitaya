@@ -69,12 +69,18 @@ html, body {
 }
 
 /* ========================================================
-   DISEÑO PASO 1: PANTALLA INICIAL
+   DISEÑO PASO 1: PANTALLA INICIAL (DESGLOSE RESPONSIVE)
    ======================================================== */
 .screen-initial {
     position: relative;
     width: 100%;
-    background-color: #FAF6EF;
+    background-color: #0A3D36;
+}
+
+.screen-initial-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
 .screen-initial-bg {
@@ -85,49 +91,95 @@ html, body {
     pointer-events: none;
 }
 
-.initial-action-container {
+/* Logo Pitaya flotante en la parte superior */
+.initial-logo-top {
     position: absolute;
-    bottom: 22px;
+    top: 1.8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22.5%;
+    max-width: 120px;
+    height: auto;
+    z-index: 5;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* Bloque inferior sobre la franja verde */
+.initial-bottom-content {
+    position: absolute;
+    bottom: 2.2%;
     left: 0;
     right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 24px;
+    justify-content: center;
+    padding: 0 16px;
+    gap: 9px;
     z-index: 10;
 }
 
-.btn-continuar {
-    background-color: var(--pitaya-yellow);
-    color: var(--pitaya-green-dark);
-    font-family: var(--font-main);
-    font-size: 19px;
-    font-weight: 800;
-    padding: 14px 42px;
-    border-radius: 35px;
+/* Imagen de texto inferior */
+.img-texto-inferior {
+    width: 78%;
+    max-width: 340px;
+    height: auto;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+/* Botón Continuar interactivo con imagen y efecto latente */
+.btn-continuar-img {
+    background: transparent;
     border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 63%;
+    max-width: 275px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-    text-decoration: none;
-    width: 82%;
-    max-width: 320px;
+    animation: botonLatente 1.8s ease-in-out infinite;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn-continuar:hover, .btn-continuar:active {
-    background-color: var(--pitaya-yellow-hover);
-    transform: scale(0.98);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.img-btn-continuar {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+    transition: transform 0.15s ease;
 }
 
-.btn-continuar .arrow-icon {
-    font-size: 22px;
-    line-height: 1;
-    font-weight: 900;
+/* Animación Latente (Pulsing suave) */
+@keyframes botonLatente {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.055);
+        filter: drop-shadow(0 0 16px rgba(250, 184, 25, 0.55));
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (hover: hover) {
+    .btn-continuar-img:hover {
+        transform: scale(1.06);
+    }
+}
+
+.btn-continuar-img:active {
+    transform: scale(0.97);
 }
 
 /* Mensaje si no tiene llave */
