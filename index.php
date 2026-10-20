@@ -49,31 +49,26 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
              PASO 1: PANTALLA INICIAL
              ========================================== -->
         <section id="step1" class="step-screen screen-initial active">
-            <div class="screen-initial-container">
-                <!-- Imagen de fondo base -->
-                <img src="img/pagina_inicial_fondo.jpg" alt="Batidos Pitaya Apertura" class="screen-initial-bg">
+            <!-- Logo Pitaya superior flotante -->
+            <img src="img/logo_pitaya.png" alt="Logo Batidos Pitaya" class="initial-logo-top">
+            
+            <!-- Bloque inferior: Texto y Botón Continuar / Aviso -->
+            <div class="initial-bottom-content">
+                <img src="img/texto_inferior.png" alt="Obtené 10% de descuento en tu batido el día de la apertura" class="img-texto-inferior">
                 
-                <!-- Logo Pitaya superior flotante -->
-                <img src="img/logo_pitaya.png" alt="Logo Batidos Pitaya" class="initial-logo-top">
-                
-                <!-- Bloque inferior: Texto y Botón Continuar / Aviso -->
-                <div class="initial-bottom-content">
-                    <img src="img/texto_inferior.png" alt="Obtené 10% de descuento en tu batido el día de la apertura" class="img-texto-inferior">
-                    
-                    <?php if ($hasValidKey): ?>
-                        <!-- Botón Continuar interactivo con animación latente -->
-                        <button type="button" id="btnContinuar" class="btn-continuar-img" aria-label="Continuar">
-                            <img src="img/boton_continuar.png" alt="Continuar" class="img-btn-continuar">
-                        </button>
-                    <?php else: ?>
-                        <!-- Mensaje si no tiene llave -->
-                        <div class="no-key-warning-card">
-                            <div class="qr-badge-icon">📲</div>
-                            <h4>¿Querés tu 10% de descuento?</h4>
-                            <p>Para participar debés <strong>escanear el código QR</strong> en la lona de nuestro punto de activación en el Kiosko de Multicentro Las Américas.</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                <?php if ($hasValidKey): ?>
+                    <!-- Botón Continuar interactivo con animación latente -->
+                    <button type="button" id="btnContinuar" class="btn-continuar-img" aria-label="Continuar">
+                        <img src="img/boton_continuar.png" alt="Continuar" class="img-btn-continuar">
+                    </button>
+                <?php else: ?>
+                    <!-- Mensaje si no tiene llave -->
+                    <div class="no-key-warning-card">
+                        <div class="qr-badge-icon">📲</div>
+                        <h4>¿Querés tu 10% de descuento?</h4>
+                        <p>Para participar debés <strong>escanear el código QR</strong> en la lona de nuestro punto de activación en el Kiosko de Multicentro Las Américas.</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
 

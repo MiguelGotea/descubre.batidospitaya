@@ -69,36 +69,31 @@ html, body {
 }
 
 /* ========================================================
-   DISEÑO PASO 1: PANTALLA INICIAL (DESGLOSE RESPONSIVE)
+   DISEÑO PASO 1: PANTALLA INICIAL (ENCUADRE EXACTO 9:16 CON SANGRÍA)
    ======================================================== */
 .screen-initial {
     position: relative;
     width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     background-color: #0A3D36;
-}
-
-.screen-initial-container {
-    position: relative;
-    width: 100%;
+    background-image: url('../img/pagina_inicial_fondo.jpg');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
     overflow: hidden;
-}
-
-.screen-initial-bg {
-    width: 100%;
-    height: auto;
-    display: block;
-    user-select: none;
-    pointer-events: none;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Logo Pitaya flotante en la parte superior */
 .initial-logo-top {
     position: absolute;
-    top: 1.8%;
+    top: 2.2%;
     left: 50%;
     transform: translateX(-50%);
-    width: 22.5%;
-    max-width: 120px;
+    width: 24%;
+    max-width: 110px;
     height: auto;
     z-index: 5;
     user-select: none;
@@ -109,7 +104,7 @@ html, body {
 /* Bloque inferior sobre la franja verde */
 .initial-bottom-content {
     position: absolute;
-    bottom: 2.2%;
+    bottom: 3.2%;
     left: 0;
     right: 0;
     display: flex;
@@ -117,13 +112,13 @@ html, body {
     align-items: center;
     justify-content: center;
     padding: 0 16px;
-    gap: 9px;
+    gap: 12px;
     z-index: 10;
 }
 
 /* Imagen de texto inferior */
 .img-texto-inferior {
-    width: 78%;
+    width: 80%;
     max-width: 340px;
     height: auto;
     display: block;
@@ -140,7 +135,7 @@ html, body {
     padding: 0;
     margin: 0;
     cursor: pointer;
-    width: 63%;
+    width: 65%;
     max-width: 275px;
     display: inline-flex;
     align-items: center;
