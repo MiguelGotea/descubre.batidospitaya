@@ -556,23 +556,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     baseImg.src = 'img/ticket_cupon.png';
                 });
 
-                // Dimensiones HD (2x de 540x462) para máxima nitidez en cualquier pantalla
+                // Dimensiones HD basadas en la resolución del nuevo ticket (675x607 x scale 2)
+                const origWidth = baseImg.naturalWidth || 675;
+                const origHeight = baseImg.naturalHeight || 607;
                 const scale = 2;
                 const canvas = document.createElement('canvas');
-                canvas.width = 540 * scale;   // 1080
-                canvas.height = 462 * scale;  // 924
+                canvas.width = origWidth * scale;   // 1350
+                canvas.height = origHeight * scale;  // 1214
                 const ctx = canvas.getContext('2d');
 
                 // Dibujar el ticket base
                 ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
 
-                // Posición exacta del centro de la cápsula clara en ticket_cupon.png
-                // Ancho original 540 (Centro X: 270), Alto 462 (Centro cápsula Y: 409)
-                const centerX = 270 * scale;
-                const centerY = 410 * scale;
+                // Posición exacta del centro de la cápsula clara en ticket_2.png (675x607)
+                // Centro horizontal = 50% (337.5px), Centro cápsula Y = 538px (88.63%)
+                const centerX = canvas.width / 2;
+                const centerY = Math.round(canvas.height * (538 / 607));
 
                 ctx.fillStyle = '#0A3D36';
-                ctx.font = '900 56px "Outfit", sans-serif';
+                ctx.font = '900 68px "Outfit", sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
 

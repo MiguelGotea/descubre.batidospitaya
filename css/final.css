@@ -15,7 +15,7 @@
     height: 100dvh;
     max-height: 100dvh;
     background-color: #FAF6EF;
-    background-image: url('../img/fondo_final.jpg');
+    background-image: url('../img/fondo_final_2.jpg');
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
@@ -84,10 +84,11 @@
 /* Recuadro sobre el espacio claro del ticket para el código */
 .ticket-code-badge {
     position: absolute;
-    top: 82.7%;
-    left: 21%;
-    width: 58%;
-    height: 11.7%;
+    top: 83%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    height: 11.2%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,7 +115,7 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Botón inferior flotante de captura - reducido un 30% */
+/* Botón inferior flotante de captura - adaptado a proporción 6:1 */
 .final-btn-slot {
     position: absolute;
     bottom: max(14px, 2.2vh);
@@ -136,8 +137,8 @@
     padding: 0;
     margin: 0;
     cursor: pointer;
-    width: 64%;
-    max-width: 255px;
+    width: 76%;
+    max-width: 310px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -181,7 +182,7 @@
         letter-spacing: 3px;
     }
     .btn-captura-img {
-        max-width: 220px;
+        max-width: 270px;
     }
 }
 
@@ -197,6 +198,6 @@
         letter-spacing: 2.5px;
     }
     .btn-captura-img {
-        max-width: 190px;
+        max-width: 230px;
     }
 }
