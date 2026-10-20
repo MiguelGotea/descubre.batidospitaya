@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function switchStep(fromStep, toStep) {
         fromStep.classList.remove('active');
+        fromStep.style.display = 'none';
         setTimeout(() => {
+            toStep.style.display = 'flex';
             toStep.classList.add('active');
             if (toStep.id !== 'step1') {
                 document.body.style.overflow = 'auto';
