@@ -21,6 +21,7 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
     <link rel="stylesheet" href="css/styles.css?v=<?php echo filemtime(__DIR__ . '/css/styles.css'); ?>">
     <link rel="stylesheet" href="css/formulario.css?v=<?php echo filemtime(__DIR__ . '/css/formulario.css'); ?>">
     <link rel="stylesheet" href="css/final.css?v=<?php echo filemtime(__DIR__ . '/css/final.css'); ?>">
+    <link rel="stylesheet" href="css/bloqueo.css?v=<?php echo filemtime(__DIR__ . '/css/bloqueo.css'); ?>">
 </head>
 <body>
 
@@ -29,7 +30,7 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
          ======================================================== -->
     <div id="pcBlocker" class="pc-blocker-overlay">
         <div class="pc-blocker-card">
-            <img src="img/logo.png" alt="Batidos Pitaya" class="pc-blocker-logo">
+            <img src="img/logo_pitaya.png" alt="Batidos Pitaya" class="pc-blocker-logo">
             <div class="pc-blocker-icon">📱</div>
             <h2 class="pc-blocker-title">¡Solo para Celulares!</h2>
             <p class="pc-blocker-text">
@@ -47,8 +48,9 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
          ======================================================== -->
     <main class="app-viewport">
         
+        <?php if ($hasValidKey): ?>
         <!-- ==========================================
-             PASO 1: PANTALLA INICIAL
+             PASO 1: PANTALLA INICIAL (ACCESO CON LLAVE QR)
              ========================================== -->
         <section id="step1" class="step-screen screen-initial active">
             <!-- Logo Pitaya superior flotante (subido más arriba) -->
@@ -61,22 +63,27 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
                 <div class="pie-pagina-content">
                     <img src="img/texto_inferior.png" alt="Obtené 10% de descuento en tu batido el día de la apertura" class="img-texto-inferior">
                     
-                    <?php if ($hasValidKey): ?>
-                        <!-- Botón Continuar interactivo con animación latente -->
-                        <button type="button" id="btnContinuar" class="btn-continuar-img" aria-label="Continuar">
-                            <img src="img/boton_continuar.png" alt="Continuar" class="img-btn-continuar">
-                        </button>
-                    <?php else: ?>
-                        <!-- Mensaje si no tiene llave -->
-                        <div class="no-key-warning-card">
-                            <div class="qr-badge-icon">📲</div>
-                            <h4>¿Querés tu 10% de descuento?</h4>
-                            <p>Para participar debés <strong>escanear el código QR</strong> en la lona de nuestro punto de activación en el Kiosko de Multicentro Las Américas.</p>
-                        </div>
-                    <?php endif; ?>
+                    <!-- Botón Continuar interactivo con animación latente -->
+                    <button type="button" id="btnContinuar" class="btn-continuar-img" aria-label="Continuar">
+                        <img src="img/boton_continuar.png" alt="Continuar" class="img-btn-continuar">
+                    </button>
                 </div>
             </div>
         </section>
+        <?php else: ?>
+        <!-- ==========================================
+             PANTALLA DE BLOQUEO (SIN ESCANEAR QR)
+             ========================================== -->
+        <section class="screen-no-key active">
+            <div class="no-key-content-wrapper">
+                <!-- Logo Pitaya superior flotante -->
+                <img src="img/logo_pitaya.png" alt="Logo Batidos Pitaya" class="no-key-logo-top">
+                
+                <!-- Texto gráfico de la dinámica: Para participar en la dinámica solo es necesario escanear el código QR -->
+                <img src="img/texto_bloqueo_qr.png" alt="¡Para participar en la dinámica! Solo es necesario escanear el código QR" class="img-texto-bloqueo">
+            </div>
+        </section>
+        <?php endif; ?>
 
         <!-- ==========================================
              PASO 2: FORMULARIO DE REGISTRO

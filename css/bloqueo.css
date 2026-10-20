@@ -1,0 +1,79 @@
+/* ========================================================
+   ESTILOS AISLADOS: PANTALLA SIN LLAVE QR (BLOQUEO)
+   ======================================================== */
+
+.screen-no-key {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    background-color: #FAF6EF;
+    background-image: url('../img/fondo_final.jpg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.no-key-content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: max(10px, 1.5vh);
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+/* Logo Pitaya superior flotante */
+.no-key-logo-top {
+    width: 22%;
+    max-width: 92px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
+}
+
+/* Imagen de texto oficial: ¡Para participar en la dinámica! Solo es necesario escanear el código QR */
+.img-texto-bloqueo {
+    width: 78%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin-top: max(14px, 2.2vh);
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 12px rgba(10, 61, 54, 0.15));
+}
+
+/* Optimización para teléfonos compactos */
+@media (max-height: 720px) {
+    .no-key-logo-top {
+        max-width: 72px;
+    }
+    .img-texto-bloqueo {
+        max-width: 270px;
+        margin-top: max(8px, 1.5vh);
+    }
+}
+
+@media (max-height: 620px) {
+    .no-key-logo-top {
+        max-width: 60px;
+    }
+    .img-texto-bloqueo {
+        max-width: 230px;
+        margin-top: 6px;
+    }
+}
