@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. PASO 3: BOTÓN AMARILLO PALPITANTE - GENERAR CAPTURA / COMPARTIR
+    // 6. PASO 3: BOTÓN AMARILLO PALPITANTE - GENERAR IMAGEN DEL TICKET / COMPARTIR
     if (btnCapturaCupon) {
         btnCapturaCupon.addEventListener('click', async () => {
             const code = couponDisplayCode ? couponDisplayCode.textContent.trim() : '';
@@ -342,13 +342,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            showLoadingModal('Generando Captura', 'Preparando la imagen de tu cupón...');
+            showLoadingModal('Guardando Ticket', 'Preparando la imagen de tu ticket con el código...');
 
             try {
-                const canvas = document.createElement('canvas');
-                canvas.width = 634;
-                canvas.height = 1125;
-                const ctx = canvas.getContext('2d');
+                // Asegurar que la tipografía esté lista en el navegador
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
 
                 const baseImg = new Image();
                 baseImg.crossOrigin = 'anonymous';
@@ -356,48 +356,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 await new Promise((resolve, reject) => {
                     baseImg.onload = resolve;
                     baseImg.onerror = reject;
-                    baseImg.src = 'img/pagina_final.jpeg';
+                    baseImg.src = 'img/ticket_cupon.png';
                 });
 
-                ctx.drawImage(baseImg, 0, 0, 634, 1125);
+                // Dimensiones HD (2x de 540x462) para máxima nitidez en cualquier pantalla
+                const scale = 2;
+                const canvas = document.createElement('canvas');
+                canvas.width = 540 * scale;   // 1080
+                canvas.height = 462 * scale;  // 924
+                const ctx = canvas.getContext('2d');
 
-                // Dibujar el código centrado exactamente en el recuadro blanco (X=316, Y=550)
+                // Dibujar el ticket base
+                ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
+
+                // Posición exacta del centro de la cápsula clara en ticket_cupon.png
+                // Ancho original 540 (Centro X: 270), Alto 462 (Centro cápsula Y: 409)
+                const centerX = 270 * scale;
+                const centerY = 410 * scale;
+
                 ctx.fillStyle = '#0A3D36';
-                ctx.font = '900 36px "Outfit", sans-serif';
+                ctx.font = '900 56px "Outfit", sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
 
                 const spacedCode = code.split('').join('  ');
-                ctx.fillText(spacedCode, 316, 550);
+                ctx.fillText(spacedCode, centerX, centerY);
 
                 hideModal();
 
-                // Convertir a Blob para compartir o descargar
+                // Convertir a Blob para compartir, copiar o descargar
                 canvas.toBlob(async (blob) => {
                     if (!blob) {
                         showToast('Código: ' + code);
                         return;
                     }
 
-                    const fileName = `cupon_pitaya_${code}.png`;
+                    const fileName = `ticket_pitaya_${code}.png`;
                     const file = new File([blob], fileName, { type: 'image/png' });
 
-                    // Web Share API (Soportado en iOS Safari y Android Chrome para guardar en Fotos)
+                    // 1. Intentar copiar imagen al portapapeles si el navegador lo permite
+                    let imageCopied = false;
+                    if (navigator.clipboard && window.ClipboardItem) {
+                        try {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                            imageCopied = true;
+                        } catch (clipErr) {
+                            // Silencioso: algunos navegadores restringen ClipboardItem para imágenes
+                        }
+                    }
+
+                    // 2. Web Share API para guardar directamente en Fotos/Galería en móviles
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         try {
                             await navigator.share({
                                 files: [file],
-                                title: 'Cupón Batidos Pitaya',
+                                title: 'Ticket Cupón Batidos Pitaya',
                                 text: `¡Mi 10% de descuento en Batidos Pitaya! Código: ${code}`
                             });
-                            showToast('📸 ¡Captura lista en tus fotos!');
+                            showToast(imageCopied ? '🎟️ ¡Ticket copiado y listo en tus fotos!' : '🎟️ ¡Ticket listo en tus fotos!');
                             return;
                         } catch (shareErr) {
                             if (shareErr.name === 'AbortError') return;
                         }
                     }
 
-                    // Descarga directa como fallback
+                    // 3. Descarga directa del ticket como respaldo confiable
                     const downloadUrl = URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.href = downloadUrl;
@@ -407,17 +432,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.removeChild(link);
                     setTimeout(() => URL.revokeObjectURL(downloadUrl), 4000);
 
-                    showToast('📸 ¡Captura descargada! Guardada en tu galería.');
-
-                    // Copiar código al portapapeles automáticamente
-                    if (navigator.clipboard) {
+                    // 4. Copiar código de texto al portapapeles si la imagen no se pudo copiar
+                    if (navigator.clipboard && !imageCopied) {
                         navigator.clipboard.writeText(code).catch(() => { });
                     }
+
+                    showToast(imageCopied ? '🎟️ ¡Ticket descargado y copiado!' : '🎟️ ¡Ticket guardado en tu galería!');
                 }, 'image/png');
 
             } catch (err) {
                 hideModal();
-                console.error("Error al generar captura:", err);
+                console.error("Error al generar ticket:", err);
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(code).catch(() => { });
                 }

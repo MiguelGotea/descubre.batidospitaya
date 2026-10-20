@@ -84,26 +84,28 @@
 /* Recuadro sobre el espacio claro del ticket para el código */
 .ticket-code-badge {
     position: absolute;
-    top: 80.5%;
-    left: 18%;
-    width: 64%;
-    height: 13%;
+    top: 82.7%;
+    left: 21%;
+    width: 58%;
+    height: 11.7%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 15;
+    pointer-events: auto;
 }
 
 .coupon-display-code {
     font-family: var(--font-main);
-    font-size: 26px;
+    font-size: 25px;
     font-weight: 900;
-    letter-spacing: 4px;
+    letter-spacing: 3.5px;
     color: #0A3D36;
     text-transform: uppercase;
     user-select: all;
     line-height: 1;
     text-align: center;
+    transform: translateY(1px); /* Centrado óptico exacto */
     animation: codePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
