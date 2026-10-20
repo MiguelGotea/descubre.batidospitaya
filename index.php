@@ -217,7 +217,6 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
         };
     </script>
 
-    <script src="js/fingerprint.js?v=<?php echo filemtime(__DIR__ . '/js/fingerprint.js'); ?>"></script>
     <script src="js/app.js?v=<?php echo filemtime(__DIR__ . '/js/app.js'); ?>"></script>
 </body>
 
