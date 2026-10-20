@@ -1,6 +1,11 @@
 /* ========================================================
    ESTILOS AISLADOS: PASO 2 FORMULARIO DE REGISTRO
    ======================================================== */
+/* Ocultar completamente el paso 1 cuando no esté activo sin alterar css/styles.css */
+#step1:not(.active) {
+    display: none !important;
+}
+
 .screen-form {
     position: relative;
     width: 100%;
