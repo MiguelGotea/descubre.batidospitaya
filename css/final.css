@@ -71,6 +71,51 @@
     justify-content: center;
     align-items: center;
     user-select: none;
+    transform-origin: center center;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    animation: ticketPenduloWobble 4.8s ease-in-out infinite;
+}
+
+@media (hover: hover) {
+    .ticket-wrapper:hover {
+        animation-play-state: paused;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ticket-wrapper {
+        animation: none;
+    }
+}
+
+/* Animación estilo péndulo / balanceo con pausas (break) manteniendo el centro */
+@keyframes ticketPenduloWobble {
+    0%, 12% {
+        transform: rotate(0deg);
+    }
+    17% {
+        transform: rotate(-3.5deg);
+    }
+    23% {
+        transform: rotate(3deg);
+    }
+    29% {
+        transform: rotate(-2.2deg);
+    }
+    35% {
+        transform: rotate(1.4deg);
+    }
+    40% {
+        transform: rotate(-0.6deg);
+    }
+    44% {
+        transform: rotate(0.2deg);
+    }
+    48%, 100% {
+        transform: rotate(0deg);
+    }
 }
 
 .img-ticket {
