@@ -17,7 +17,7 @@ define('LONA_LAT', 12.120908);
 define('LONA_LNG', -86.250753);
 
 // Radio permitido en metros
-define('RADIO_METROS', 300);
+define('RADIO_METROS', 300000);
 
 // Tiempo de expiración del token de sesión en minutos (Capa 4)
 define('EXPIRACION_SESION_MINUTOS', 30000);
