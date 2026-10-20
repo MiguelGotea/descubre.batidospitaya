@@ -80,34 +80,63 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
              PASO 2: FORMULARIO DE REGISTRO
              ========================================== -->
         <section id="step2" class="step-screen screen-form">
-            <img src="img/pagina_formulario.jpeg" alt="Formulario de Descuento" class="screen-form-bg">
-            
-            <form id="registrationForm" class="form-overlay-wrapper" autocomplete="off">
-                <div class="form-inputs-slot">
-                    <!-- 1. Nombre completo -->
-                    <div class="input-row">
-                        <input type="text" id="nombre_completo" name="nombre_completo" 
-                               placeholder="Nombre completo" required maxlength="100">
-                    </div>
-                    <!-- 2. Número de celular -->
-                    <div class="input-row">
-                        <input type="tel" id="numero_contacto" name="numero_contacto" 
-                               placeholder="Número de celular" required maxlength="8" inputmode="numeric">
-                    </div>
-                    <!-- 3. Número de cédula -->
-                    <div class="input-row">
-                        <input type="text" id="numero_cedula" name="numero_cedula" 
-                               placeholder="Número de cédula" required maxlength="16">
-                    </div>
-                </div>
+            <div class="form-content-wrapper">
+                <!-- Logo Pitaya superior flotante -->
+                <img src="img/logo_pitaya.png" alt="Logo Batidos Pitaya" class="form-logo-top">
+                
+                <!-- Texto superior: ¡Llévate tu 10% de descuento! -->
+                <img src="img/texto_superior_formulario.png" alt="¡Llévate tu 10% de descuento! Completá tus datos y obtené tu descuento para el día de la apertura." class="form-texto-superior">
+                
+                <!-- Formulario interactivo -->
+                <form id="registrationForm" class="form-interactive" autocomplete="off">
+                    <div class="form-inputs-group">
+                        <!-- 1. Nombre completo -->
+                        <div class="form-input-card">
+                            <span class="form-input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </span>
+                            <input type="text" id="nombre_completo" name="nombre_completo" 
+                                   placeholder="Nombre completo" required maxlength="100">
+                        </div>
 
-                <!-- Botón Obtener Descuento -->
-                <div class="btn-submit-slot">
-                    <button type="submit" id="btnSubmitForm" class="btn-obtener-descuento">
-                        OBTENER DESCUENTO <span class="arrow-icon">➔</span>
-                    </button>
-                </div>
-            </form>
+                        <!-- 2. Número de celular -->
+                        <div class="form-input-card">
+                            <span class="form-input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </span>
+                            <input type="tel" id="numero_contacto" name="numero_contacto" 
+                                   placeholder="Número de celular" required maxlength="8" inputmode="numeric">
+                        </div>
+
+                        <!-- 3. Número de cédula -->
+                        <div class="form-input-card">
+                            <span class="form-input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="4" width="20" height="16" rx="3.5"></rect>
+                                    <circle cx="8" cy="10" r="2.5"></circle>
+                                    <path d="M5.5 16a2.5 2.5 0 0 1 5 0"></path>
+                                    <line x1="14" y1="9" x2="18" y2="9"></line>
+                                    <line x1="14" y1="13" x2="18" y2="13"></line>
+                                </svg>
+                            </span>
+                            <input type="text" id="numero_cedula" name="numero_cedula" 
+                                   placeholder="Número de cédula" required maxlength="16">
+                        </div>
+                    </div>
+
+                    <!-- Botón Obtener Descuento interactivo con animación latente -->
+                    <div class="form-btn-slot">
+                        <button type="submit" id="btnSubmitForm" class="btn-obtener-img" aria-label="Obtener Descuento">
+                            <img src="img/boton_formulario.png" alt="Obtener Descuento" class="img-btn-obtener">
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
 
         <!-- ==========================================
