@@ -34,11 +34,7 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
     <div id="pcBlocker" class="pc-blocker-overlay">
         <div class="pc-blocker-card">
             <img src="img/logo_pitaya.png" alt="Batidos Pitaya" class="pc-blocker-logo">
-            <h2 class="pc-blocker-title">¡Solo para Celulares!</h2>
-            <p class="pc-blocker-text">
-                Esta activación de descuento de apertura está diseñada exclusivamente para participar desde tu celular
-                en nuestro Kiosko.
-            </p>
+            <img src="img/boton_sin_fondo_HD.png" alt="¡Solo para Celulares! Esta activación de descuento de apertura está diseñada exclusivamente para participar desde tu celular en nuestro Kiosko." class="pc-blocker-banner">
             <div class="pc-blocker-badge">
                 <span class="pc-blocker-badge-icon">📍</span>
                 <span>Visítanos en nuestro Kiosko en <strong>Multicentro Las Américas</strong> para escanear el código y
