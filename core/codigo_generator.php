@@ -1,9 +1,5 @@
 <?php
-if (file_exists(__DIR__ . '/database/conexion.php')) {
-    require_once __DIR__ . '/database/conexion.php';
-} else {
-    require_once __DIR__ . '/conexion.php';
-}
+require_once __DIR__ . '/conexion.php';
 
 /**
  * Genera un código único alfanumérico en mayúsculas de 6 caracteres máximo

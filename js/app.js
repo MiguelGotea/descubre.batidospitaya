@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     // Pasar al Paso 3 (Pantalla final)
                     switchStep(step2, step3);
-                    showToast('🎉 ¡Descuento obtenido con éxito!');
+                    showToast('¡Descuento obtenido con éxito!');
                 } else {
                     showErrorModal('No se pudo registrar', data.message || 'Ocurrió un error al procesar tu solicitud.', '⚠️');
                 }
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.font = '900 36px "Outfit", sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                
+
                 const spacedCode = code.split('').join('  ');
                 ctx.fillText(spacedCode, 316, 550);
 
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Copiar código al portapapeles automáticamente
                     if (navigator.clipboard) {
-                        navigator.clipboard.writeText(code).catch(() => {});
+                        navigator.clipboard.writeText(code).catch(() => { });
                     }
                 }, 'image/png');
 
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideModal();
                 console.error("Error al generar captura:", err);
                 if (navigator.clipboard) {
-                    navigator.clipboard.writeText(code).catch(() => {});
+                    navigator.clipboard.writeText(code).catch(() => { });
                 }
                 showToast('¡Código: ' + code + ' copiado al portapapeles!');
             }

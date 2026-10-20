@@ -2,11 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    require_once __DIR__ . '/core/database/conexion.php';
-    require_once __DIR__ . '/core/config.php';
-    require_once __DIR__ . '/core/session_manager.php';
-    require_once __DIR__ . '/core/device_blocker.php';
-    require_once __DIR__ . '/core/codigo_generator.php';
+    require_once __DIR__ . '/core/init.php';
 
     $response = [
         'success' => false,

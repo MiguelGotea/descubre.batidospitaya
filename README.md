@@ -27,7 +27,7 @@ Plataforma web para registro de participantes mediante código QR físico ubicad
 
 ## 🗄️ Base de Datos
 
-Ejecutar el script [`database/schema.sql`](file:///c:/Users/migue/Desktop/Sistema/Pitaya%20Web/VisualCode/descubre.batidospitaya.com/database/schema.sql) en la base de datos `u839374897_erp` en phpMyAdmin:
+Las tablas operan sobre la base de datos `u839374897_erp`:
 
 1. `descubre_sesiones_qr`: Registra tokens temporales y coordenadas validadas.
 2. `descubre_registros`: Registra a los participantes, cédulas, datos forenses del dispositivo y los códigos únicos de descuento.
