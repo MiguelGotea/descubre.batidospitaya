@@ -66,7 +66,7 @@
     position: relative;
     width: 86%;
     max-width: 350px;
-    margin-top: max(4px, 0.8vh);
+    margin-top: max(15px, 2.5vh);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,10 +112,10 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Botón inferior flotante de captura */
+/* Botón inferior flotante de captura - reducido un 30% */
 .final-btn-slot {
     position: absolute;
-    bottom: max(10px, 1.8vh);
+    bottom: max(14px, 2.2vh);
     left: 0;
     right: 0;
     width: 100%;
@@ -134,8 +134,8 @@
     padding: 0;
     margin: 0;
     cursor: pointer;
-    width: 88%;
-    max-width: 360px;
+    width: 64%;
+    max-width: 255px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,7 +179,7 @@
         letter-spacing: 3px;
     }
     .btn-captura-img {
-        max-width: 300px;
+        max-width: 220px;
     }
 }
 
@@ -195,6 +195,6 @@
         letter-spacing: 2.5px;
     }
     .btn-captura-img {
-        max-width: 260px;
+        max-width: 190px;
     }
 }
