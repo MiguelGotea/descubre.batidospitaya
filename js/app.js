@@ -103,6 +103,22 @@ document.addEventListener('DOMContentLoaded', () => {
         fromStep.classList.remove('active');
         setTimeout(() => {
             toStep.classList.add('active');
+            if (toStep.id !== 'step1') {
+                document.body.style.overflow = 'auto';
+                const viewport = document.querySelector('.app-viewport');
+                if (viewport) {
+                    viewport.style.overflow = 'auto';
+                    viewport.style.height = 'auto';
+                    viewport.style.minHeight = '100dvh';
+                }
+            } else {
+                document.body.style.overflow = 'hidden';
+                const viewport = document.querySelector('.app-viewport');
+                if (viewport) {
+                    viewport.style.overflow = 'hidden';
+                    viewport.style.height = '100dvh';
+                }
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 200);
     }
