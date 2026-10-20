@@ -390,8 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             } else if (data.error_type === 'DEVICE_ALREADY_REGISTERED') {
                                 showErrorModal(
                                     'Dispositivo Ya Registrado',
-                                    data.message,
-                                    ''
+                                    data.message
                                 );
                             } else {
                                 showErrorModal('Atención', data.message || 'No se pudo validar el acceso.', '⚠️');
