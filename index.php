@@ -20,6 +20,7 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
     
     <link rel="stylesheet" href="css/styles.css?v=<?php echo filemtime(__DIR__ . '/css/styles.css'); ?>">
     <link rel="stylesheet" href="css/formulario.css?v=<?php echo filemtime(__DIR__ . '/css/formulario.css'); ?>">
+    <link rel="stylesheet" href="css/final.css?v=<?php echo filemtime(__DIR__ . '/css/final.css'); ?>">
 </head>
 <body>
 
@@ -144,18 +145,24 @@ $hasValidKey = (!empty($paramK) && $paramK === QR_ACCESS_KEY);
              PASO 3: PANTALLA FINAL (CUPÓN)
              ========================================== -->
         <section id="step3" class="step-screen screen-final">
-            <img src="img/pagina_final.jpeg" alt="Tu Descuento Pitaya" class="screen-final-bg">
-            
-            <!-- Inyección del código de 6 dígitos sobre el recuadro blanco -->
-            <div class="final-code-slot">
-                <span id="couponDisplayCode" class="coupon-display-code">------</span>
-            </div>
+            <div class="final-content-wrapper">
+                <!-- Logo Pitaya superior flotante -->
+                <img src="img/logo_pitaya.png" alt="Logo Batidos Pitaya" class="final-logo-top">
+                
+                <!-- Ticket con código insertado -->
+                <div class="ticket-wrapper">
+                    <img src="img/ticket_cupon.png" alt="Cupón 10% Descuento" class="img-ticket">
+                    <div class="ticket-code-badge">
+                        <span id="couponDisplayCode" class="coupon-display-code">------</span>
+                    </div>
+                </div>
 
-            <!-- Botón para copiar código al portapapeles -->
-            <div class="final-action-footer">
-                <button type="button" id="btnCopyCode" class="btn-copy-code">
-                    📋 Copiar Código
-                </button>
+                <!-- Botón interactivo palpitante para tomar captura -->
+                <div class="final-btn-slot">
+                    <button type="button" id="btnCapturaCupon" class="btn-captura-img" aria-label="Tomar captura del cupón">
+                        <img src="img/boton_captura.png" alt="Haz una captura y preséntala en nuestro Kiosko de Batidos Pitaya Multicentro Las Américas" class="img-btn-captura">
+                    </button>
+                </div>
             </div>
         </section>
 

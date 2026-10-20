@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnContinuar = document.getElementById('btnContinuar');
     const registrationForm = document.getElementById('registrationForm');
     const couponDisplayCode = document.getElementById('couponDisplayCode');
-    const btnCopyCode = document.getElementById('btnCopyCode');
+    const btnCapturaCupon = document.getElementById('btnCapturaCupon');
 
     const inputNombre = document.getElementById('nombre_completo');
     const inputContacto = document.getElementById('numero_contacto');
@@ -339,18 +339,95 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. PASO 3: COPIAR CÓDIGO
-    if (btnCopyCode) {
-        btnCopyCode.addEventListener('click', () => {
+    // 6. PASO 3: BOTÓN AMARILLO PALPITANTE - GENERAR CAPTURA / COMPARTIR
+    if (btnCapturaCupon) {
+        btnCapturaCupon.addEventListener('click', async () => {
             const code = couponDisplayCode ? couponDisplayCode.textContent.trim() : '';
-            if (code && navigator.clipboard) {
-                navigator.clipboard.writeText(code).then(() => {
-                    showToast('¡Código ' + code + ' copiado al portapapeles!');
-                }).catch(() => {
-                    showToast('Código: ' + code);
+            if (!code || code === '------') {
+                showToast('Generando cupón...');
+                return;
+            }
+
+            showLoadingModal('Generando Captura', 'Preparando la imagen de tu cupón...');
+
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 634;
+                canvas.height = 1125;
+                const ctx = canvas.getContext('2d');
+
+                const baseImg = new Image();
+                baseImg.crossOrigin = 'anonymous';
+
+                await new Promise((resolve, reject) => {
+                    baseImg.onload = resolve;
+                    baseImg.onerror = reject;
+                    baseImg.src = 'img/pagina_final.jpeg';
                 });
-            } else if (code) {
-                showToast('Código: ' + code);
+
+                ctx.drawImage(baseImg, 0, 0, 634, 1125);
+
+                // Dibujar el código centrado exactamente en el recuadro blanco (X=316, Y=550)
+                ctx.fillStyle = '#0A3D36';
+                ctx.font = '900 36px "Outfit", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const spacedCode = code.split('').join('  ');
+                ctx.fillText(spacedCode, 316, 550);
+
+                hideModal();
+
+                // Convertir a Blob para compartir o descargar
+                canvas.toBlob(async (blob) => {
+                    if (!blob) {
+                        showToast('Código: ' + code);
+                        return;
+                    }
+
+                    const fileName = `cupon_pitaya_${code}.png`;
+                    const file = new File([blob], fileName, { type: 'image/png' });
+
+                    // Web Share API (Soportado en iOS Safari y Android Chrome para guardar en Fotos)
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        try {
+                            await navigator.share({
+                                files: [file],
+                                title: 'Cupón Batidos Pitaya',
+                                text: `¡Mi 10% de descuento en Batidos Pitaya! Código: ${code}`
+                            });
+                            showToast('📸 ¡Captura lista en tus fotos!');
+                            return;
+                        } catch (shareErr) {
+                            if (shareErr.name === 'AbortError') return;
+                        }
+                    }
+
+                    // Descarga directa como fallback
+                    const downloadUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(downloadUrl), 4000);
+
+                    showToast('📸 ¡Captura descargada! Guardada en tu galería.');
+
+                    // Copiar código al portapapeles automáticamente
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(code).catch(() => {});
+                    }
+                }, 'image/png');
+
+            } catch (err) {
+                hideModal();
+                console.error("Error al generar captura:", err);
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(code).catch(() => {});
+                }
+                showToast('¡Código: ' + code + ' copiado al portapapeles!');
             }
         });
     }
