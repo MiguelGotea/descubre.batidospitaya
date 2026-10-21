@@ -12,15 +12,15 @@ function generarTokenSeguro(): string {
 /**
  * Crea una sesión QR en la base de datos tras verificar llave y ubicación
  */
-function crearSesionToken($ip, $fingerprint, $lat, $lng, $distancia): ?string {
+function crearSesionToken($ip, $fingerprint, $lat, $lng, $distancia, $precision = null): ?string {
     $token = generarTokenSeguro();
     $minutos = EXPIRACION_SESION_MINUTOS;
     
     $sql = "INSERT INTO descubre_sesiones_qr 
-            (token, ip_origen, device_fingerprint, geo_lat, geo_lng, distancia_metros, creado_en, expira_en, usado) 
-            VALUES (?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? MINUTE), 0)";
+            (token, ip_origen, device_fingerprint, geo_lat, geo_lng, distancia_metros, geo_precision_metros, creado_en, expira_en, usado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? MINUTE), 0)";
             
-    $stmt = ejecutarConsulta($sql, [$token, $ip, $fingerprint, $lat, $lng, $distancia, $minutos]);
+    $stmt = ejecutarConsulta($sql, [$token, $ip, $fingerprint, $lat, $lng, $distancia, $precision, $minutos]);
     return $stmt ? $token : null;
 }
 
@@ -32,7 +32,7 @@ function validarSesionToken($token, $fingerprint = null): array {
         return ['valido' => false, 'mensaje' => 'Token de sesión ausente.'];
     }
     
-    $sql = "SELECT id, token, device_fingerprint, expira_en, usado, 
+    $sql = "SELECT id, token, device_fingerprint, geo_lat, geo_lng, distancia_metros, geo_precision_metros, expira_en, usado, 
                    IF(expira_en > NOW(), 1, 0) AS no_expirado 
             FROM descubre_sesiones_qr 
             WHERE token = ? LIMIT 1";

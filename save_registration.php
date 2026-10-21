@@ -81,9 +81,9 @@ try {
     $sql = "INSERT INTO descubre_registros 
             (nombre_completo, numero_contacto, numero_cedula, 
              codigo_descuento, ip_publica, user_agent, device_fingerprint, 
-             canvas_fingerprint, geo_lat, geo_lng, distancia_metros, geo_metodo, 
+             canvas_fingerprint, geo_lat, geo_lng, geo_precision_metros, distancia_metros, geo_metodo, 
              session_token, activacion_id, estado, fecha_registro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', NOW())";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', NOW())";
 
     $params = [
         $nombre,
@@ -96,6 +96,7 @@ try {
         $canvasFp,
         $sesionData['geo_lat'] ?? null,
         $sesionData['geo_lng'] ?? null,
+        $sesionData['geo_precision_metros'] ?? null,
         $sesionData['distancia_metros'] ?? null,
         $token,
         ACTIVACION_ID

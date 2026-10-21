@@ -56,8 +56,9 @@ try {
     }
 
     // 4. Capa 4: Creación de Token de Sesión Temporal
+    $accuracyMetros = ($accuracy !== null && is_numeric($accuracy)) ? (int)round((float)$accuracy) : null;
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
-    $token = crearSesionToken($ip, $fingerprint, $lat, $lng, $geoCheck['distancia']);
+    $token = crearSesionToken($ip, $fingerprint, $lat, $lng, $geoCheck['distancia'], $accuracyMetros);
 
     if (!$token) {
         $response['message'] = 'No se pudo iniciar la sesión de registro. Por favor intenta nuevamente.';
