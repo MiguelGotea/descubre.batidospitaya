@@ -77,13 +77,14 @@ try {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
     $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-    // 9. Guardar Registro en Base de Datos
+    // 9. Guardar Registro en Base de Datos (Hora oficial Managua, Nicaragua)
+    $fechaRegistro = date('Y-m-d H:i:s');
     $sql = "INSERT INTO descubre_registros 
             (nombre_completo, numero_contacto, numero_cedula, 
              codigo_descuento, ip_publica, user_agent, device_fingerprint, 
              canvas_fingerprint, geo_lat, geo_lng, geo_precision_metros, distancia_metros, geo_metodo, 
              session_token, activacion_id, estado, fecha_registro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', NOW())";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'gps', ?, ?, 'emitido', ?)";
 
     $params = [
         $nombre,
@@ -99,7 +100,8 @@ try {
         $sesionData['geo_precision_metros'] ?? null,
         $sesionData['distancia_metros'] ?? null,
         $token,
-        ACTIVACION_ID
+        ACTIVACION_ID,
+        $fechaRegistro
     ];
 
     $stmt = ejecutarConsulta($sql, $params);
