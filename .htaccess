@@ -11,6 +11,17 @@ RewriteEngine On
 # CUANDO DESEES HACER PÚBLICA LA PÁGINA: Comenta la siguiente línea con un '#' o bórrala.
 # RewriteRule ^.*$ https://www.instagram.com/batidospitaya/? [R=302,L]
 
+
+# ------------------------------------------------------------------------------
+# 1. REDIRECCIÓN QR → sorteos.batidospitaya.com
+# El QR físico de marketing apunta a descubre con ?k=<clave_descubre>.
+# Esta regla intercepta esa entrada y redirige al sorteo activo,
+# sustituyendo la clave por la del sorteo.
+# DESACTIVAR cuando descubre vuelva a usarse como destino principal.
+# ------------------------------------------------------------------------------
+RewriteCond %{QUERY_STRING} ^k=bP9x2Qm7vN4kRj3sT8wLf6Yh$
+RewriteRule ^$ https://sorteos.batidospitaya.com/?k=SORTEOS_2026_CONCIERTO_MARTINGARRIX_X9K7M [R=302,L,QSD]
+
 # ------------------------------------------------------------------------------
 # 2. CONFIGURACIÓN DEL SERVIDOR WEB (PRODUCCIÓN)
 # ------------------------------------------------------------------------------
