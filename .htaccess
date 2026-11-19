@@ -25,7 +25,7 @@ RewriteRule ^$ https://sorteos.batidospitaya.com/?k=SORTEOS_2026_CONCIERTO_MARTI
 # ------------------------------------------------------------------------------
 # 2. CONFIGURACIÓN DEL SERVIDOR WEB (PRODUCCIÓN)
 # ------------------------------------------------------------------------------
-DirectoryIndex index.php index.html
+# DirectoryIndex index.php index.html
 
 # Seguridad básica de cabeceras
 <IfModule mod_headers.c>
